@@ -12,14 +12,23 @@
 
     <!-- 1. Боковые баннеры -->
     <aside class="ad ad--left">
-        <p>🔥 АКЦИЯ!</p>
-        <p>ТОЛЬКО СЕГОДНЯ</p>
-        <a href="#">КУПИТЬ</a>
+        <p class="ad__label">РЕКЛАМА</p>
+        <p class="ad__emoji">🔥</p>
+        <p class="ad__text">ТЫ ВСЁ ЕЩЁ НЕ КУПИЛ?</p>
+        <p class="ad__arrow">👇👇👇</p>
+        <a href="#buy" class="ad__btn">ЖМИИИ!</a>
+        <p class="ad__stars">⭐⭐⭐⭐⭐</p>
+        <p class="ad__fine">5 звёзд из 5<br>(поставили мы сами)</p>
     </aside>
+
     <aside class="ad ad--right">
-        <p>🔥 АКЦИЯ!</p>
-        <p>ТОЛЬКО СЕГОДНЯ</p>
-        <a href="#">КУПИТЬ</a>
+        <p class="ad__label">СПЕЦПРЕДЛОЖЕНИЕ</p>
+        <p class="ad__emoji">❄️</p>
+        <p class="ad__price-old">9999₽</p>
+        <p class="ad__price-new">99₽</p>
+        <p class="ad__text">ТОЛЬКО СЕГОДНЯ!!!</p>
+        <a href="#buy" class="ad__btn ad__btn--ice">УРВАТЬ!</a>
+        <p class="ad__fine">*пока не передумали</p>
     </aside>
 
     <!-- 2. Шапка / Hero -->
@@ -33,53 +42,75 @@
     </header>
 
     <!-- 3. Бегущая строка -->
-    <div class="marquee-wrap"> ... </div>
+    <div class="marquee-wrap">
+        <marquee>
+            ⚡ АНДР ЭНЕРДЖИ — НЕ ДЛЯ СЛАБАКОВ ⚡ &nbsp;&nbsp;&nbsp;
+            🧊 ХОЛОДНЫЙ КАК АРКТИКА &nbsp;&nbsp;&nbsp;
+            💀 ВРАЧИ РЕКОМЕНДУЮТ* &nbsp;&nbsp;&nbsp;
+            🚀 ВЫПИЛ — ПОЛЕТЕЛ &nbsp;&nbsp;&nbsp;
+            ❄️ ОСВЕЖАЕТ СИЛЬНЕЕ ЧЕМ ЖИЗНЬ &nbsp;&nbsp;&nbsp;
+        </marquee>
+    </div>
 
     <!-- 4. Топ-5 причин -->
     <section class="top5">
-
-        <h2>ТОП-5 ПРИЧИН</h2>
-
+        <h2>ТОП-5 ПРИЧИН ПОЧЕМУ ЭТО НУЖНО ИМЕННО ТЕБЕ</h2>
         <div class="top5__list">
 
             <article class="top5__item">
                 <span class="top5__number">01</span>
-                <h3>Причина первая</h3>
-                <p>Текст текст текст</p>
+                <h3>ТЫ УСТАЛ</h3>
+                <p>Работа, учёба, жизнь — всё это высасывает из тебя силы. АНДР ЭНЕРДЖИ вливает их обратно.</p>
             </article>
+
             <article class="top5__item">
                 <span class="top5__number">02</span>
-                <h3>Причина вторая</h3>
-                <p>Текст текст текст</p>
+                <h3>В НЁМ ЕСТЬ ТАУРИН</h3>
+                <p>Мы не знаем что это, но звучит очень мощно. Доверяй науке.</p>
             </article>
+
             <article class="top5__item">
                 <span class="top5__number">03</span>
-                <h3>Причина третья</h3>
-                <p>Текст текст текст</p>
+                <h3>КРАСИВАЯ БАНКА = КРАСИВЫЙ ТЫ</h3>
+                <p>Люди судят по тому что ты держишь в руке. Держи правильные вещи.</p>
             </article>
+
             <article class="top5__item">
                 <span class="top5__number">04</span>
-                <h3>Причина четвёртая</h3>
-                <p>Текст текст текст</p>
+                <h3>ДЕШЕВЛЕ ЧЕМ ПСИХОЛОГ</h3>
+                <p>Сеанс у психолога: 3000₽. Банка АНДР ЭНЕРДЖИ: 99₽. Математика говорит сама за себя.</p>
             </article>
+
             <article class="top5__item">
                 <span class="top5__number">05</span>
-                <h3>Причина пятая</h3>
-                <p>Текст текст текст</p>
+                <h3>ВСЕ ДРУЗЬЯ УЖЕ ПЬЮТ</h3>
+                <p>Они сидят где-то без тебя и пьют АНДР ЭНЕРДЖИ. Ты точно уверен что не хочешь?</p>
             </article>
 
         </div>
-
     </section>
 
     <!-- 5. Лозунги -->
     <section class="slogans">
         <h2>НАШИ ЛОЗУНГИ</h2>
         <div class="slogans__grid">
-            <div class="slogan-card">ЛОЗУНГ 1</div>
-            <div class="slogan-card">ЛОЗУНГ 2</div>
-            <div class="slogan-card">ЛОЗУНГ 3</div>
-            <div class="slogan-card">ЛОЗУНГ 4</div>
+
+            <div class="slogan-card">
+                🚀 НЕ СПИШЬ?<br>МЫ ПОМОЖЕМ<br>НЕ СПАТЬ ЕЩЁ ДОЛЬШЕ!
+            </div>
+
+            <div class="slogan-card">
+                💪 АНДР ЭНЕРДЖИ —<br>ДЛЯ ТЕХ КТО<br>ЕЩЁ НЕ СДАЛСЯ!
+            </div>
+
+            <div class="slogan-card">
+                ❄️ ХОЛОДНЕЕ ЧЕМ<br>ТВОЙ БЫВШИЙ.<br>ВКУСНЕЕ ТОЖЕ.
+            </div>
+
+            <div class="slogan-card">
+                🏅 ТВОЙ БОСС ПЬЁТ КОФЕ.<br>ТЫ — АНДР ЭНЕРДЖИ.<br>КТО КРУЧЕ — РЕШАЙ САМ.
+            </div>
+
         </div>
     </section>
 
@@ -90,24 +121,29 @@
         <div class="reviews__grid">
 
             <div class="review-card">
-                <p class="review-card__text">"Выпил — взлетел"</p>
-                <p class="review-card__author">— Дядя Вася, 54 года</p>
                 <p class="review-card__stars">⭐⭐⭐⭐⭐</p>
+                <p class="review-card__text">"Доктор спросил чем объяснить такую активность.
+                    Я показал банку. Он тоже купил."</p>
+                <p class="review-card__author">— Дядя Вася, 54 года</p>
             </div>
 
             <div class="review-card">
-                <p class="review-card__text">"Выпил — взлетел"</p>
-                <p class="review-card__author">— Дядя Вася, 54 года</p>
                 <p class="review-card__stars">⭐⭐⭐⭐⭐</p>
+                <p class="review-card__text">"Дала мужу — починил кран, покрасил забор, написал роман. Заказала ещё."
+                </p>
+                <p class="review-card__author">— Тётя Люда, Саратов</p>
             </div>
 
             <div class="review-card">
-                <p class="review-card__text">"Выпил — взлетел"</p>
-                <p class="review-card__author">— Дядя Вася, 54 года</p>
                 <p class="review-card__stars">⭐⭐⭐⭐⭐</p>
+                <p class="review-card__text">"Жена заказала ящик. Сказала — для хозяйства.
+                    Хозяйство процветает."
+                </p>
+                <p class="review-card__author">— Анатолий, Краснодар</p>
             </div>
 
         </div>
+    </section>
 
 
     </section>
@@ -115,14 +151,63 @@
     <!-- 7. Псевдонаука -->
     <section class="science">
         <h2>НАУКА ПОДТВЕРЖДАЕТ</h2>
-        <p>Текст текст текст</p>
+
+        <div class="science__grid">
+
+            <div class="science__item">
+                <span class="science__icon">⚡</span>
+                <h3>КОФЕИН 160МГ</h3>
+                <p>Клинически доказано — бодрит. Не доказано — делает тебя умнее. Но ты же чувствуешь разницу?</p>
+            </div>
+
+            <div class="science__item">
+                <span class="science__icon">🦁</span>
+                <h3>ТАУРИН 1000МГ</h3>
+                <p>Аминокислота которую используют спортсмены, чемпионы и просто очень серьёзные люди. Теперь и ты.</p>
+            </div>
+
+            <div class="science__item">
+                <span class="science__icon">🧬</span>
+                <h3>ВИТАМИН B12</h3>
+                <p>Поддерживает нервную систему. Особенно актуально после того как ты увидел счёт за коммуналку.</p>
+            </div>
+
+            <div class="science__item">
+                <span class="science__icon">🌿</span>
+                <h3>БЕЗ САХАРА</h3>
+                <p>Ноль грамм сахара. Твои зубы скажут спасибо. Твой стоматолог — нет.</p>
+            </div>
+
+            <div class="science__item">
+                <span class="science__icon">❤️</span>
+                <h3>ЗАБОТА О ЗДОРОВЬЕ</h3>
+                <p>Мы убрали всё лишнее. Только польза, энергия и немного магии. Состав на банке читать необязательно.
+                </p>
+            </div>
+
+            <div class="science__item">
+                <span class="science__icon">💧</span>
+                <h3>ЭЛЕКТРОЛИТЫ</h3>
+                <p>Восстанавливают водный баланс. Звучит как реклама воды, но у нас это вкуснее.</p>
+            </div>
+
+        </div>
+
+        <p class="science__disclaimer">* исследования проводились в условиях, максимально приближённых к реальным.
+            Почти.</p>
     </section>
 
     <!-- 8. Кнопка покупки + таймер -->
     <section class="buy">
-        <h2>КУПИТЬ СЕЙЧАС</h2>
-        <p class="buy__timer">⏳ Осталось: 00:07:42</p>
+        <h2>ХВАТИТ ДУМАТЬ — БЕРИ!</h2>
+        <p class="buy__subtitle">Пока ты читаешь это — кто-то уже купил</p>
+        <p class="buy__timer">⏳ Осталось мало времени</p>
+        <div class="buy__price">
+            <span class="buy__price-old">9999₽</span>
+            <span class="buy__price-new">99₽</span>
+        </div>
         <a href="#" class="buy__btn">🔥 КУПИТЬ ЗА 99₽</a>
+        <p class="buy__disclaimer">* цена может вырасти пока ты думаешь</p>
     </section>
 
     <!-- 9. Футер -->
