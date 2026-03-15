@@ -439,7 +439,7 @@ body {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 990px) {
   .top5__list {
     grid-template-columns: 1fr;
   }
@@ -454,14 +454,30 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 735px) {
   .hero {
     flex-direction: column;
+  }
+     .science__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+    .science__icon {
+    font-size: 32px;
+  }
+     .science__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .science__item h3 {
+    font-size: 13px;
   }
 }
 
 
-@media (max-width: 320px) {
+@media (max-width: 400px) {
   .hero__title {
     font-size: 28px;
   }
@@ -493,17 +509,6 @@ body {
     padding: 16px 12px;
   }
 
-  .science__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .science__icon {
-    font-size: 32px;
-  }
-
-  .science__item h3 {
-    font-size: 13px;
-  }
 
   .buy h2 {
     font-size: 20px;
