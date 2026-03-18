@@ -33,7 +33,11 @@ nav {
     align-items: center;
 }
 
-nav a {
+button {
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+nav a, button {
     color: #C4DFE6;
     text-decoration: none;
     font-size: 18px;
