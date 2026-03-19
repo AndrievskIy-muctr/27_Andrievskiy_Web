@@ -19,8 +19,17 @@
   /* тёмно-синий для карточек */
 }
 
+[data-theme="light"] {
+    --color-bg: #e8f7ff;        /* свежий голубоватый фон */
+    --color-accent: #0099dd;    /* яркий синий */
+    --color-accent2: #005588;   /* насыщенный тёмно-синий */
+    --color-danger: #ee1111;    /* яркий красный */
+    --color-text: #051525;      /* почти чёрный с синевой */
+    --color-card: #c2e8ff;      /* насыщенный голубой для карточек */
+}
+
 body {
-  background: linear-gradient(180deg, #020b18 0%, #0a2540 100%);
+  background: linear-gradient(180deg, var(--color-bg) 0%, #0a2540 100%);
   color: var(--color-text);
   font-family: Arial, sans-serif;
   margin: 0 130px;
@@ -72,6 +81,27 @@ body {
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 4px;
+}
+
+#theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 146px; /* 130px margin + 16px отступ */
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text);
+    border: 2px solid var(--color-accent);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+#theme-toggle:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
 }
 
 .top5__list {
@@ -443,14 +473,14 @@ body {
   .top5__list {
     grid-template-columns: 1fr;
   }
-
   .ad {
     display: none;
   }
-
   body {
     margin: 0;
-    /* убираем отступы обратно */
+  }
+  #theme-toggle {
+    right: 16px;
   }
 }
 
@@ -458,28 +488,32 @@ body {
   .hero {
     flex-direction: column;
   }
-     .science__grid {
+
+  .science__grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 550px) {
-    .science__icon {
+  .science__icon {
     font-size: 32px;
   }
-     .science__grid {
+  .science__grid {
     grid-template-columns: 1fr;
   }
-
   .science__item h3 {
     font-size: 13px;
+  }
+  #theme-toggle {
+    font-size: 12px;
+    padding: 6px 5px;
   }
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
   .hero__title {
-    font-size: 28px;
+    font-size: 50px;
   }
 
   .hero__slogan {
@@ -488,9 +522,16 @@ body {
   }
 
   .hero__img {
-    width: 120px;
+    width: 240px;
   }
+}
 
+@media (max-width: 400px) {
+  
+  hero__img {
+    width: 200px;
+  }
+  
   .hero__btn {
     font-size: 14px;
     padding: 12px 24px;
@@ -529,5 +570,13 @@ body {
 
   .marquee-wrap marquee {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  
+  #theme-toggle {
+    font-size: 12px;
+    padding: 6px 1px;
   }
 }
