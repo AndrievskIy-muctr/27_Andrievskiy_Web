@@ -555,6 +555,10 @@ body {
   line-height: 1.4;
 }
 
+footer p {
+  color:#ffffff
+}
+
 
 @media (max-width: 990px) {
   .top5__list {
