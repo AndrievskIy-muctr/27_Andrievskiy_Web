@@ -13,8 +13,8 @@
     <header class="hero">
 
         <button type="button" id="theme-toggle" aria-label="Toggle dark mode">
-        <span class="toggle-text">Dark</span>
-    </button>
+            <span class="toggle-text">Dark</span>
+        </button>
 
         <img src="img/banka.png" alt="Банка АНДР ЭНЕРДЖИ" class="hero__img" />
         <div class="hero__text">
@@ -123,33 +123,24 @@
         <!-- 6. Отзывы -->
         <section class="reviews">
             <h2>ЧТО ГОВОРЯТ ЛЮДИ</h2>
+            <div class="reviews__grid" id="reviews-grid"></div>
 
-            <div class="reviews__grid">
-
-                <div class="review-card">
-                    <p class="review-card__stars">⭐⭐⭐⭐⭐</p>
-                    <p class="review-card__text">"Доктор спросил чем объяснить такую активность.
-                        Я показал банку. Он тоже купил."</p>
-                    <p class="review-card__author">— Дядя Вася, 54 года</p>
+            <form id="review-form">
+                <h3>ОСТАВИТЬ ОТЗЫВ</h3>
+                <input type="text" id="review-name" placeholder="Ваше имя" />
+                <textarea id="review-text" placeholder="Ваш отзыв"></textarea>
+                <input type="file" id="review-img" accept="image/*" />
+                <p id="review-error"></p>
+                <div id="review-stars">
+                    <span data-value="1">★</span>
+                    <span data-value="2">★</span>
+                    <span data-value="3">★</span>
+                    <span data-value="4">★</span>
+                    <span data-value="5">★</span>
                 </div>
-
-                <div class="review-card">
-                    <p class="review-card__stars">⭐⭐⭐⭐⭐</p>
-                    <p class="review-card__text">"Дала мужу — починил кран, покрасил забор, написал роман. Заказала
-                        ещё."
-                    </p>
-                    <p class="review-card__author">— Тётя Люда, Саратов</p>
-                </div>
-
-                <div class="review-card">
-                    <p class="review-card__stars">⭐⭐⭐⭐⭐</p>
-                    <p class="review-card__text">"Жена заказала ящик. Сказала — для хозяйства.
-                        Хозяйство процветает."
-                    </p>
-                    <p class="review-card__author">— Анатолий, Краснодар</p>
-                </div>
-
-            </div>
+                <input type="hidden" id="review-stars-value" value="0" />
+                <button type="submit">ОТПРАВИТЬ</button>
+            </form>
         </section>
 
 
@@ -225,6 +216,8 @@
         <p>*компания не несёт ответственности за последствия</p>
     </footer>
 
+    <script src="js/theme.js"></script>
+    <script src="js/cookie.js"></script>
     <script src="js/index.js"></script>
 </body>
 

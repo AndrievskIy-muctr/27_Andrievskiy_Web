@@ -1,41 +1,72 @@
-const toggle = document.getElementById('theme-toggle');
-const html = document.documentElement;
+const defaultReviews = [
+    { name: "Дядя Вася, 54 года", text: "Доктор спросил чем объяснить такую активность. Я показал банку. Он тоже купил.", img: null, stars: 5 },
+    { name: "Тётя Люда, Саратов", text: "Дала мужу — починил кран, покрасил забор, написал роман. Заказала ещё.", img: null, stars: 5 },
+    { name: "Анатолий, Краснодар", text: "Жена заказала ящик. Сказала — для хозяйства. Хозяйство процветает.", img: null, stars: 5 },
+];
 
-// Get current theme
-function getTheme() {
-    return html.getAttribute('data-theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+let reviews = loadReviews() || defaultReviews;
+
+function renderReviews(reviews) {
+    const grid = document.getElementById("reviews-grid");
+    grid.innerHTML = reviews.map(r => `
+        <div class="review-card">
+            ${r.img ? `<img src="${r.img}" class="review-card__img" alt="фото" />` : ""}
+            <p class="review-card__stars">${"⭐".repeat(r.stars)}</p>
+            <p class="review-card__text">"${r.text}"</p>
+            <p class="review-card__author">— ${r.name}</p>
+        </div>
+    `).join("");
 }
 
-// Set theme and update UI
-function setTheme(theme) {
-    html.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    updateToggleText(theme);
-}
+renderReviews(reviews);
 
-// Update button text
-function updateToggleText(theme) {
-    const icon = theme === 'dark' ? '🌙' : '☀️';
-    const label = theme === 'dark' ? ' Dark' : ' Light';
-    toggle.textContent = window.innerWidth <= 400 ? icon : icon + label;
-    toggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
-}
+document.getElementById("review-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("review-name").value;
+    const text = document.getElementById("review-text").value;
+    const error = document.getElementById("review-error");
+    const stars = parseInt(document.getElementById("review-stars-value").value);
 
-window.addEventListener('resize', () => updateToggleText(getTheme()));
+    if (stars === 0) {
+        error.textContent = "Поставьте оценку";
+        return;
+    }
+    if (name.trim().length < 2) {
+        error.textContent = "Имя слишком короткое (минимум 2 символа)";
+        return;
+    }
+    if (text.trim().length < 5) {
+        error.textContent = "Отзыв слишком короткий (минимум 5 символов)";
+        return;
+    }
 
-// Initialize
-updateToggleText(getTheme());
+    error.textContent = "";
 
-// Handle toggle click
-toggle.addEventListener('click', () => {
-    const current = getTheme();
-    setTheme(current === 'dark' ? 'light' : 'dark');
+    const imgFile = document.getElementById("review-img").files[0];
+    if (imgFile) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            reviews.push({ name, text, img: ev.target.result, stars });
+            saveReviews(reviews.map(r => ({ ...r, img: null }))); // ← заменить
+            renderReviews(reviews);
+        };
+        reader.readAsDataURL(imgFile);
+    } else {
+        reviews.push({ name, text, img: null, stars });
+        saveReviews(reviews.map(r => ({ ...r, img: null }))); // ← заменить
+        renderReviews(reviews);
+
+    }
+
+    e.target.reset();
 });
 
-// Listen for system preference changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-    }
+document.querySelectorAll("#review-stars span").forEach(star => {
+    star.addEventListener("click", () => {
+        const val = parseInt(star.getAttribute("data-value"));
+        document.getElementById("review-stars-value").value = val;
+        document.querySelectorAll("#review-stars span").forEach(s => {
+            s.classList.toggle("active", parseInt(s.getAttribute("data-value")) <= val);
+        });
+    });
 });
