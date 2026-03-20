@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Манчкин — Моя колода</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
     <header>
         <h1>Моя колода</h1>
-        <label>
-            <input type="checkbox" id="edit-toggle">
-            Режим редактирования
-        </label>
     </header>
 
     <main id="cards-container"></main>
@@ -21,6 +19,19 @@
         <p>Манчкин — моя колода карт</p>
     </footer>
 
-    <script src="js/index.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/edit.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <dialog id="modal">
+        <h2>Редактирование карты</h2>
+        <div id="modal-body"></div>
+        <button id="modal-close">Закрыть</button>
+    </dialog>
 </body>
+
 </html>

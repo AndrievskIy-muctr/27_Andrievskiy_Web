@@ -1,19 +1,20 @@
 class Card {
     constructor(name, description, image) {
-        this.name = name;
-        this.description = description;
-        this.image = image;
+        this.name = name
+        this.description = description
+        this.image = image
     }
     toHTML() {
         const div = document.createElement('div')
         div.className = 'card'
-        return div // просто возвращаем пустой div, так как расположение тегов у каждого подкласса будет своё
+        return div
     }
 }
 
 class Monster extends Card {
     constructor(name, description, image, level, obscenity, riches) {
         super(name, description, image)
+        this.type = 'Monster'
         this.level = level
         this.obscenity = obscenity
         this.riches = riches
@@ -22,6 +23,9 @@ class Monster extends Card {
     toHTML() {
         const div = super.toHTML()
         div.classList.add('monster')
+
+        const type = document.createElement('span')
+        type.textContent = 'Монстр'
 
         const level = document.createElement('h4')
         level.textContent = this.level
@@ -37,12 +41,12 @@ class Monster extends Card {
         description.textContent = this.description
 
         const obscenity = document.createElement('p')
-        obscenity.textContent = this.obscenity
+        obscenity.textContent = `Непотребство: ${this.obscenity}`
 
         const riches = document.createElement('p')
-        riches.textContent = this.riches
+        riches.textContent = `Сокровища: ${this.riches}`
 
-        div.append(level, name, description, obscenity, img, riches)
+        div.append(type, level, name, description, obscenity, img, riches)
         return div
     }
 }
@@ -50,6 +54,7 @@ class Monster extends Card {
 class Clothes extends Card {
     constructor(name, description, image, bonus, busy_hands, cost) {
         super(name, description, image)
+        this.type = 'Clothes'
         this.bonus = bonus
         this.busy_hands = busy_hands
         this.cost = cost
@@ -58,6 +63,9 @@ class Clothes extends Card {
     toHTML() {
         const div = super.toHTML()
         div.classList.add('clothes')
+
+        const type = document.createElement('span')
+        type.textContent = 'Шмотка'
 
         const bonus = document.createElement('h4')
         bonus.textContent = this.bonus
@@ -73,12 +81,12 @@ class Clothes extends Card {
         description.textContent = this.description
 
         const busy_hands = document.createElement('p')
-        busy_hands.textContent = this.busy_hands
+        busy_hands.textContent = `Руки: ${this.busy_hands}`
 
         const cost = document.createElement('p')
-        cost.textContent = this.cost
+        cost.textContent = `Стоимость: ${this.cost} голды`
 
-        div.append(bonus, name, description, img, busy_hands, cost)
+        div.append(type, bonus, name, description, img, busy_hands, cost)
         return div
     }
 }
@@ -86,6 +94,7 @@ class Clothes extends Card {
 class Race extends Card {
     constructor(name, description, image, ability) {
         super(name, description, image)
+        this.type = 'Race'
         this.ability = ability
     }
 
@@ -107,7 +116,7 @@ class Race extends Card {
         description.textContent = this.description
 
         const ability = document.createElement('p')
-        ability.textContent = this.ability
+        ability.textContent = `Способность: ${this.ability}`
 
         div.append(type, name, img, description, ability)
         return div
@@ -117,13 +126,16 @@ class Race extends Card {
 class Helper extends Card {
     constructor(name, description, image, bonus) {
         super(name, description, image)
+        this.type = 'Helper'
         this.bonus = bonus
     }
 
     toHTML() {
-
         const div = super.toHTML()
         div.classList.add('helper')
+
+        const type = document.createElement('span')
+        type.textContent = 'Прислужник'
 
         const bonus = document.createElement('h4')
         bonus.textContent = this.bonus
@@ -138,16 +150,16 @@ class Helper extends Card {
         const description = document.createElement('p')
         description.textContent = this.description
 
-        div.append(bonus, name, description, img)
+        div.append(type, bonus, name, description, img)
         return div
     }
 }
 
 class Potion extends Card {
-    constructor(name, description, image, bonus, duration, cost) {
+    constructor(name, description, image, bonus, cost) {
         super(name, description, image)
+        this.type = 'Potion'
         this.bonus = bonus
-        this.duration = duration
         this.cost = cost
     }
 
@@ -171,13 +183,10 @@ class Potion extends Card {
         const bonus = document.createElement('h4')
         bonus.textContent = this.bonus
 
-        const duration = document.createElement('p')
-        duration.textContent = this.duration
-
         const cost = document.createElement('p')
-        cost.textContent = this.cost
+        cost.textContent = `Стоимость: ${this.cost} голды`
 
-        div.append(type, name, img, description, bonus, duration, cost)
+        div.append(type, name, img, description, bonus, cost)
         return div
     }
 }
@@ -185,12 +194,16 @@ class Potion extends Card {
 class Event extends Card {
     constructor(name, description, image, effect) {
         super(name, description, image)
+        this.type = 'Event'
         this.effect = effect
     }
 
     toHTML() {
         const div = super.toHTML()
         div.classList.add('event')
+
+        const type = document.createElement('span')
+        type.textContent = 'Событие'
 
         const name = document.createElement('h3')
         name.textContent = this.name
@@ -203,36 +216,9 @@ class Event extends Card {
         description.textContent = this.description
 
         const effect = document.createElement('p')
-        effect.textContent = this.effect
+        effect.textContent = `Эффект: ${this.effect}`
 
-        div.append(name, img, description, effect)
+        div.append(type, name, img, description, effect)
         return div
     }
 }
-
-const defaultCards = [
-    new Monster('Крыса Мутант', 'Обычная крыса, но очень злая', 'img/image.png', 2, 'Теряешь уровень', 1),
-    new Monster('Огненный Дракон', 'Дракон который очень любит жарить героев', 'img/image.png', 10, 'Теряешь все шмотки', 3),
-    new Monster('Гоблин Карманник', 'Крадёт твои вещи пока ты не смотришь', 'img/image.png', 4, 'Теряешь одну шмотку', 2),
-    new Clothes('Меч Остренький', 'Выглядит грозно, рубит посредственно', 'img/image.png', '+3', 'две руки', 400),
-    new Clothes('Шлем Рогатый', 'Рога для устрашения врагов', 'img/image.png', '+1', 'голова', 200),
-    new Race('Эльф', 'Острые уши, высокомерный взгляд', 'img/image.png', 'Можешь помогать другим в бою без спроса'),
-    new Race('Дварф', 'Низкий, бородатый, злопамятный', 'img/image.png', 'Можешь носить любое количество доспехов'),
-    new Helper('Верный Конь', 'Возит шмотки и иногда лягается', 'img/image.png', '+2 к побегу'),
-    new Potion('Зелье Силы', 'Пахнет носками но даёт +5', 'img/image.png', '+5 в бою', 'один бой', 150),
-    new Event('Налог на богатство', 'Королевский указ застал всех врасплох', 'img/image.png', 'Все игроки теряют по 100 золота'),
-]
-
-
-function buildPage(cards) {
-    const main = document.querySelector('main')
-    main.innerHTML = ''
-
-    cards.forEach(card => {
-        main.append(card.toHTML())
-    })
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    buildPage(defaultCards)
-})
