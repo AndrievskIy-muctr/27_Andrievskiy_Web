@@ -44,6 +44,13 @@ document.getElementById("review-form").addEventListener("submit", (e) => {
 
     const imgFile = document.getElementById("review-img").files[0];
     if (imgFile) {
+
+        if (!imgFile.type.startsWith('image/')) {
+            error.textContent = "Можно загружать только изображения";
+            return;
+        }
+    
+
         const reader = new FileReader();
         reader.onload = (ev) => {
             reviews.push({ name, text, img: ev.target.result, stars });

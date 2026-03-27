@@ -118,23 +118,7 @@ function createField(label, field, value, isFile = false) {
     return wrapper
 }
 
-function saveCard(index) {
-    const card = currentCards[index]
-    const inputs = document.querySelectorAll('#modal-body input')
 
-    inputs.forEach(input => {
-        const field = input.dataset.field
-        if (input.type === 'file') {
-            card[field] = input.dataset.currentValue
-        } else {
-            card[field] = input.value
-        }
-    })
-
-    saveToStorage(currentCards)
-    buildPage(currentCards)
-    closeModal()
-}
 
 function closeModal() {
     document.getElementById('modal').close()
@@ -162,11 +146,20 @@ function openAddModal() {
     const typeSelect = document.createElement('select')
     typeSelect.id = 'card-type-select'
 
-    const types = ['Monster', 'Clothes', 'Race', 'Helper', 'Potion', 'Event']
+    // Массив с типами: значение (англ) и текст (рус)
+    const types = [
+        { value: 'Monster', label: '👾 Монстр' },
+        { value: 'Clothes', label: '👕 Шмотка' },
+        { value: 'Race', label: '🧝 Раса' },
+        { value: 'Helper', label: '🧟 Прислужник' },
+        { value: 'Potion', label: '🧪 Зелье' },
+        { value: 'Event', label: '⚡ Событие' }
+    ]
+
     types.forEach(t => {
         const option = document.createElement('option')
-        option.value = t
-        option.textContent = t
+        option.value = t.value
+        option.textContent = t.label
         typeSelect.append(option)
     })
 
@@ -240,33 +233,64 @@ function renderUniqueFields(type) {
     }
 }
 
+
+
 function saveNewCard() {
     const type = document.getElementById('card-type-select').value
     const inputs = document.querySelectorAll('#modal-body input[type="text"]')
     const fileInput = document.querySelector('#modal-body input[type="file"]')
 
-    const values = {}
+    const rawValues = {}
     inputs.forEach(input => {
-        values[input.dataset.field] = input.value
+        rawValues[input.dataset.field] = input.value
     })
-    values['image'] = fileInput.dataset.currentValue || ''
+    const image = fileInput?.dataset.currentValue || ''
+
+    // Валидируем все данные
+    const validData = validateCardData(type, rawValues, image)
 
     let card
     if (type === 'Monster') {
-        card = new Monster(values.name, values.description, values.image, values.level, values.obscenity, values.riches)
+        card = new Monster(validData.name, validData.description, validData.image, validData.level, validData.obscenity, validData.riches)
     } else if (type === 'Clothes') {
-        card = new Clothes(values.name, values.description, values.image, values.bonus, values.busy_hands, values.cost)
+        card = new Clothes(validData.name, validData.description, validData.image, validData.bonus, validData.busy_hands, validData.cost)
     } else if (type === 'Race') {
-        card = new Race(values.name, values.description, values.image, values.ability)
+        card = new Race(validData.name, validData.description, validData.image, validData.ability)
     } else if (type === 'Helper') {
-        card = new Helper(values.name, values.description, values.image, values.bonus)
+        card = new Helper(validData.name, validData.description, validData.image, validData.bonus)
     } else if (type === 'Potion') {
-        card = new Potion(values.name, values.description, values.image, values.bonus, values.cost)
+        card = new Potion(validData.name, validData.description, validData.image, validData.bonus, validData.cost)
     } else if (type === 'Event') {
-        card = new Event(values.name, values.description, values.image, values.effect)
+        card = new Event(validData.name, validData.description, validData.image, validData.effect)
     }
 
     currentCards.push(card)
+    saveToStorage(currentCards)
+    buildPage(currentCards)
+    closeModal()
+}
+
+function saveCard(index) {
+    const card = currentCards[index]
+    const type = card.type
+    const inputs = document.querySelectorAll('#modal-body input[type="text"], #modal-body input[type="file"]')
+
+    const rawValues = {}
+    inputs.forEach(input => {
+        const field = input.dataset.field
+        if (input.type === 'file') {
+            rawValues[field] = input.dataset.currentValue || card[field]
+        } else {
+            rawValues[field] = input.value
+        }
+    })
+
+    // Валидируем все данные
+    const validData = validateCardData(type, rawValues, rawValues.image)
+
+    // Обновляем карту
+    Object.assign(card, validData)
+
     saveToStorage(currentCards)
     buildPage(currentCards)
     closeModal()
