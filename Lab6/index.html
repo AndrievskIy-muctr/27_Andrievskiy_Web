@@ -9,10 +9,9 @@
 
 <body>
 
-  <!-- НАВИГАЦИОННОЕ МЕНЮ -->
   <header>
     <div class="header-inner">
-      <div class="logo">API<span>Lab6</span></div>
+      <div class="logo">API<span>Lab</span></div>
 
       <nav class="main-nav" id="main-nav">
         <button class="active" data-api="comments">💬 Комментарии / Посты</button>
@@ -24,67 +23,53 @@
 
   <main class="main-content">
 
-    <!-- Секция Комментариев (текущая работа) -->
     <section id="section-comments" class="section active">
       <h1 class="section-title">Работа с комментариями</h1>
       <p class="section-desc">CRUD операции с MockAPI (POST, GET, PATCH, DELETE)</p>
 
       <div id="error-message" class="error"></div>
 
-      <!-- Форма создания -->
       <h2>Новый пост</h2>
       <form id="create-form">
-        <input id="input-title" type="text" placeholder="Заголовок" required />
+        <input id="input-title" type="text" placeholder="Заголовок (от 3 до 100 симв.)" required minlength="3"
+          maxlength="100" />
         <br><br>
-        <textarea id="input-body" placeholder="Текст поста" rows="4" required></textarea>
+        <textarea id="input-body" placeholder="Текст поста (от 5 до 1000 симв.)" rows="4" required minlength="5"
+          maxlength="1000"></textarea>
         <br><br>
         <button type="submit" class="btn">Создать пост (POST)</button>
       </form>
 
       <hr>
 
-      <!-- Форма редактирования -->
       <h2>Редактировать пост</h2>
       <form id="edit-form">
         <input id="edit-id" type="number" placeholder="ID поста" required />
-        <input id="edit-title" type="text" placeholder="Новый заголовок" />
+        <input id="edit-title" type="text" placeholder="Новый заголовок (от 3 симв.)" minlength="3" maxlength="100" />
         <br><br>
         <button type="submit" class="btn">Сохранить изменения (PATCH)</button>
       </form>
 
       <hr>
 
-      <!-- Список постов -->
       <h2>Список постов</h2>
       <button onclick="loadPosts()" class="btn ghost">🔄 Обновить список</button>
       <ul id="list"></ul>
     </section>
 
-    <!-- Секция IP-API (вместо пользователей) -->
     <section id="section-ip" class="section">
       <h1 class="section-title">🌍 Моё местоположение</h1>
-      <p class="section-desc">Определение геолокации по IP-адресу через ip-api.com</p>
-
+      <p class="section-desc">Определение геолокации по IP-адресу</p>
       <div style="margin: 2rem 0;">
-        <button onclick="getMyLocation()" class="btn">
-          🔍 Определить моё местоположение
-        </button>
+        <button onclick="getMyLocation()" class="btn">🔍 Определить моё местоположение</button>
       </div>
-
-      <!-- Результат -->
-      <div id="ip-result" class="card" style="display: none; margin-top: 2rem; padding: 1.5rem;">
-        <!-- Здесь будет информация о местоположении -->
-      </div>
-
-      <!-- Ошибка -->
+      <div id="ip-result" class="card" style="display: none; margin-top: 2rem; padding: 1.5rem;"></div>
       <div id="ip-error" class="error" style="display: none; margin-top: 1rem;"></div>
     </section>
 
-    <!-- Секция Faker.js -->
     <section id="section-faker" class="section">
-      <h1 class="section-title">🎲 Faker.js — Генератор случайных людей</h1>
-      <p class="section-desc">Создаёт вымышленных пользователей с аватарами</p>
-
+      <h1 class="section-title">🎲 Faker.js</h1>
+      <p class="section-desc">Создаёт вымышленных пользователей</p>
       <div class="faker-controls"
         style="margin: 2rem 0; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
         <label>Количество людей:</label>
@@ -92,22 +77,12 @@
           <option value="1">1 человек</option>
           <option value="2">2 человека</option>
           <option value="3" selected>3 человека</option>
-          <option value="4">4 человека</option>
           <option value="5">5 человек</option>
         </select>
-
-        <button onclick="generateFakeUsers()" class="btn">
-          ✨ Сгенерировать
-        </button>
-
-        <button onclick="clearFakeUsers()" class="btn ghost">
-          Очистить
-        </button>
+        <button onclick="generateFakeUsers()" class="btn">✨ Сгенерировать</button>
+        <button onclick="clearFakeUsers()" class="btn ghost">Очистить</button>
       </div>
-
-      <div id="faker-result" class="grid-3" style="margin-top: 2rem;">
-        <!-- Карточки людей будут появляться здесь -->
-      </div>
+      <div id="faker-result" class="grid-3" style="margin-top: 2rem;"></div>
     </section>
 
   </main>
