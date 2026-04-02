@@ -1,28 +1,38 @@
 // ====================== FAKER.JS ======================
 
 let fakerLoaded = false;
+let fakerLoading = false;
 
 async function loadFaker() {
-  if (fakerLoaded) return;
+  if (fakerLoaded) return true;
+  if (fakerLoading) return false; // уже грузится — не дублируем запрос
 
-  try {
-    const { faker } = await import('https://esm.sh/@faker-js/faker@8.4.1');
-    window.faker = faker;
-    fakerLoaded = true;
-    console.log('✅ Faker.js загружен');
-  } catch (err) {
-    console.error(err);
-    alert('Не удалось загрузить Faker.js');
+  fakerLoading = true;
+
+  const mod = await import('https://esm.sh/@faker-js/faker@8.4.1').catch(() => null);
+
+  if (!mod) {
+    alert('Не удалось загрузить Faker.js. Проверьте подключение к интернету.');
+    fakerLoading = false;
+    return false;
   }
+
+  window.faker = mod.faker;
+  fakerLoaded = true;
+  fakerLoading = false;
+  return true;
 }
 
 async function generateFakeUsers() {
-  await loadFaker();
-  if (!window.faker) return;
+  setLoading(true);
 
-  const countSelect = document.getElementById('faker-count');
-  const count = parseInt(countSelect.value) || 3;
+  const ok = await loadFaker();
+  if (!ok) {
+    setLoading(false);
+    return;
+  }
 
+  const count = parseInt(document.getElementById('faker-count').value) || 3;
   const container = document.getElementById('faker-result');
   container.innerHTML = '';
 
@@ -33,15 +43,13 @@ async function generateFakeUsers() {
     const email = window.faker.internet.email({ firstName, lastName });
     const city = window.faker.location.city();
 
-    // Чистим телефон
     let phone = window.faker.phone.number();
     phone = phone.split('x')[0].trim();
 
-    // === DiceBear — надёжный и разный аватар каждый раз ===
-    const seed = `${firstName}${lastName}${Date.now()}${i}`;   // уникальный seed
+    const seed = `${firstName}${lastName}${Date.now()}${i}`;
     const avatarUrl = `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(seed)}&radius=50`;
 
-    const cardHTML = `
+    container.innerHTML += `
       <div class="card" style="text-align: center;">
         <img 
           src="${avatarUrl}" 
@@ -54,9 +62,9 @@ async function generateFakeUsers() {
         <p style="margin: 5px 0;"><strong>Телефон:</strong> ${phone}</p>
       </div>
     `;
-
-    container.innerHTML += cardHTML;
   }
+
+  setLoading(false);
 }
 
 function clearFakeUsers() {
