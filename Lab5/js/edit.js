@@ -85,7 +85,7 @@ function createField(label, field, value, isFile = false) {
 
     if (isFile) {
         const preview = document.createElement('img')
-        preview.src = value
+        preview.src = value || 'img/image.png' // дефолтная картинка если пусто
         preview.style.width = '100%'
         preview.style.height = '80px'
         preview.style.objectFit = 'contain'
@@ -96,16 +96,35 @@ function createField(label, field, value, isFile = false) {
         input.dataset.field = field
         input.dataset.currentValue = value
 
+        // Добавляем элемент для вывода ошибки под инпутом
+        const errorEl = document.createElement('div')
+        errorEl.style.color = 'red'
+        errorEl.style.fontSize = '12px'
+        errorEl.style.marginTop = '5px'
+
         input.addEventListener('change', () => {
+            const file = input.files[0]
+            if (!file) return
+
+            // ПРОВЕРКА НА РАЗМЕР (2 МБ)
+            const MAX_SIZE = 2 * 1024 * 1024
+            if (file.size > MAX_SIZE) {
+                errorEl.textContent = 'Файл слишком большой (макс. 2 МБ)'
+                input.value = '' // Сбрасываем выбор файла
+                return
+            }
+
+            // Если всё ок, читаем файл и очищаем ошибку
+            errorEl.textContent = ''
             const reader = new FileReader()
             reader.onload = (e) => {
                 preview.src = e.target.result
                 input.dataset.currentValue = e.target.result
             }
-            reader.readAsDataURL(input.files[0])
+            reader.readAsDataURL(file)
         })
 
-        wrapper.append(labelEl, preview, input)
+        wrapper.append(labelEl, preview, input, errorEl)
         return wrapper
     }
 
