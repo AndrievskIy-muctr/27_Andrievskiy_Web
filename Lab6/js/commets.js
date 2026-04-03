@@ -85,16 +85,21 @@ async function updatePost() {
 
   const id = document.getElementById('edit-id').value.trim();
   const title = document.getElementById('edit-title').value.trim();
+  const bodyText = document.getElementById('edit-body').value.trim();
 
   if (!id) { showError('Введите ID поста'); return; }
-  if (!title) { showError('Введите новый заголовок'); return; }
+  if (!title && !bodyText) { showError('Заполните хотя бы одно поле для обновления'); return; }
+
+  const payload = {};
+  if (title) payload.title = title;
+  if (bodyText) payload.post = bodyText;
 
   setLoading(true);
 
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title })
+    body: JSON.stringify(payload)
   }).catch(() => null);
 
   if (!res) {
@@ -111,6 +116,7 @@ async function updatePost() {
 
   document.getElementById('edit-id').value = '';
   document.getElementById('edit-title').value = '';
+  document.getElementById('edit-body').value = '';
   await loadPosts();
 }
 
@@ -143,15 +149,28 @@ function renderList(posts) {
   const listElement = document.getElementById('list');
   if (!listElement) return;
 
+  listElement.innerHTML = '';
+
   if (!posts || posts.length === 0) {
-    listElement.innerHTML = '<li>📭 Нет постов</li>';
+    const empty = document.createElement('li');
+    empty.textContent = '📭 Нет постов';
+    listElement.appendChild(empty);
     return;
   }
 
-  listElement.innerHTML = posts.map(post => `
-    <li>
-      <span>${post.title || '(без заголовка)'} — ${post.post || '(без текста)'} (id: ${post.id})</span>
-      <button onclick="deletePost('${post.id}')" class="btn danger sm">🗑️ Удалить</button>
-    </li>
-  `).join('');
+  posts.forEach(post => {
+    const li = document.createElement('li');
+
+    const span = document.createElement('span');
+    span.textContent = `${post.title || '(без заголовка)'} — ${post.post || '(без текста)'} (id: ${post.id})`;
+
+    const btn = document.createElement('button');
+    btn.textContent = '🗑️ Удалить';
+    btn.className = 'btn danger sm';
+    btn.addEventListener('click', () => deletePost(post.id));
+
+    li.appendChild(span);
+    li.appendChild(btn);
+    listElement.appendChild(li);
+  });
 }
