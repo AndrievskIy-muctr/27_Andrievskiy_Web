@@ -44,17 +44,18 @@ document.getElementById("review-form").addEventListener("submit", (e) => {
 
     const imgFile = document.getElementById("review-img").files[0];
     if (imgFile) {
-
         if (!imgFile.type.startsWith('image/')) {
             error.textContent = "Можно загружать только изображения";
             return;
         }
-    
-
+        if (imgFile.size > 2 * 1024 * 1024) {
+            error.textContent = "Файл слишком большой (макс. 2 МБ)";
+            return;
+        }
         const reader = new FileReader();
         reader.onload = (ev) => {
             reviews.push({ name, text, img: ev.target.result, stars });
-            saveReviews(reviews.map(r => ({ ...r, img: null }))); // ← заменить
+            saveReviews(reviews.map(r => ({ ...r, img: null }))); 
             renderReviews(reviews);
         };
         reader.readAsDataURL(imgFile);
